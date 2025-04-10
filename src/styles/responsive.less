@@ -1,0 +1,193 @@
+/**
+ * 响应式布局样式
+ * 包含对不同设备和断点的特定样式
+ */
+
+/* 基础断点变量 */
+@small-screen: 320px;
+@medium-screen: 768px;
+@large-screen: 992px;
+
+/* 最小宽度限制 */
+@min-width: 320px;
+
+/* 安全区域变量 */
+:root {
+  --safe-area-inset-top: env(safe-area-inset-top, 0);
+  --safe-area-inset-right: env(safe-area-inset-right, 0);
+  --safe-area-inset-bottom: env(safe-area-inset-bottom, 0);
+  --safe-area-inset-left: env(safe-area-inset-left, 0);
+}
+
+/* 修复IOS中input输入框上方会莫名其妙有一个间距的问题 */
+input {
+  appearance: none;
+  border-radius: 0;
+}
+
+/* 禁止默认长按菜单 */
+.no-touch-menu {
+  -webkit-touch-callout: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* iOS 橡皮筋效果修复 */
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: none;
+}
+
+/* 设置最小宽度限制 */
+body {
+  min-width: @min-width;
+}
+
+/* 在屏幕宽度小于最小宽度时启用横向滚动 */
+@media screen and (max-width: @min-width) {
+  html,
+  body {
+    overflow-x: auto !important;
+  }
+
+  body {
+    width: @min-width;
+  }
+
+  #root {
+    width: @min-width;
+    min-width: @min-width;
+  }
+}
+
+/* 过渡效果，防止初始渲染闪烁 - 修复初始空白问题 */
+.responsive-ready {
+  transition: opacity 0.2s;
+  opacity: 1;
+}
+
+/* 修改选择器，使其只应用于已标记未准备好的元素，而不是所有元素 */
+html:not(.responsive-ready) .fade-in-when-ready {
+  opacity: 0;
+}
+
+/* 安全区域适配 - 针对不同设备的底部安全区域 */
+.safe-area-bottom {
+  padding-bottom: var(--safe-area-inset-bottom);
+}
+
+.safe-area-top {
+  padding-top: var(--safe-area-inset-top);
+}
+
+/* 断点特定样式 */
+.small-screen-only {
+  @media (min-width: @medium-screen) {
+    display: none !important;
+  }
+}
+
+.medium-screen-up {
+  @media (max-width: @medium-screen - 1) {
+    display: none !important;
+  }
+}
+
+.large-screen-only {
+  @media (max-width: @large-screen - 1) {
+    display: none !important;
+  }
+}
+
+/* 不同设备像素比的适配 */
+.hdpi-bg-image (@image) {
+  background-image: url('@{image}.png');
+
+  @media (min-device-pixel-ratio: 1.5), (resolution >= 144dpi) {
+    background-image: url('@{image}@2x.png');
+  }
+
+  @media (min-device-pixel-ratio: 2.5), (resolution >= 240dpi) {
+    background-image: url('@{image}@3x.png');
+  }
+}
+
+/* 设备特定样式 */
+.ios {
+  /* iOS 特定样式 */
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'PingFang SC', sans-serif;
+
+  /* 修复 iOS 输入框点击时闪烁的问题 */
+  input,
+  textarea {
+    -webkit-tap-highlight-color: rgb(0 0 0 / 0%);
+  }
+}
+
+.android {
+  /* Android 特定样式 */
+  font-family: Roboto, 'Noto Sans', 'Noto Sans CJK SC', sans-serif;
+
+  /* 修复 Android 上的一些渲染问题 */
+  .fix-android-overflow {
+    transform: translateZ(0);
+  }
+
+  /* 修复 Android 上的字体渲染问题 */
+  .fix-android-text {
+    text-shadow: 0 0 0 transparent;
+  }
+}
+
+/* 适配刘海屏的固定定位元素 */
+.fixed-bottom {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+  padding-bottom: var(--safe-area-inset-bottom);
+}
+
+.fixed-top {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 100;
+  padding-top: var(--safe-area-inset-top);
+}
+
+/* 全屏容器 */
+.fullscreen-container {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* 横竖屏适配 */
+.portrait-only {
+  @media screen and (orientation: landscape) {
+    display: none !important;
+  }
+}
+
+.landscape-only {
+  @media screen and (orientation: portrait) {
+    display: none !important;
+  }
+}
+
+/* 键盘适配 */
+.keyboard-aware {
+  transition: transform 0.3s ease-out;
+}
+
+.is-keyboard-open .keyboard-aware {
+  transform: translateY(-40%);
+}

@@ -1,0 +1,18 @@
+# 自动检测文本文件，并在检出时转换为系统换行符（CRLF/LF）
+* text=auto
+
+# 明确指定某些文件使用 LF 换行符（例如代码文件）
+*.sh text eol=lf
+*.py text eol=lf
+*.md text eol=lf
+
+*.ts text eol=lf
+*.tsx text eol=lf
+*.js text eol=lf
+*.jsx text eol=lf
+*.css text eol=lf
+*.less text eol=lf
+# 排除二进制文件（不进行换行符转换）
+*.png binary
+*.jpg binary
+*.zip binary
