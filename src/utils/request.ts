@@ -44,9 +44,9 @@ const formatResponse = (response: AxiosResponse<{ code: number; msg: string; dat
     return data;
   } else if (data.code === -1) {
     Modal.error({
-      title: $t('温馨提示'),
-      content: $t('该账号已在别处登录，您被迫下线'),
-      okText: $t('确认'),
+      title: $t('utils.request.Cvz4PB', '温馨提示'),
+      content: $t('utils.request.A0VZJH', '该账号已在别处登录，您被迫下线'),
+      okText: $t('utils.request.vYAdAA', '确认'),
       okButtonProps: {
         className: 'w-56',
       },
@@ -90,7 +90,7 @@ axiosInstance.interceptors.response.use(
     }
 
     const error = {
-      msg: data || $t('网络异常，请稍后重试！'),
+      msg: data || $t('utils.request.ZtDf0J', '网络异常，请稍后重试！'),
       status: status,
     };
 
@@ -99,12 +99,12 @@ axiosInstance.interceptors.response.use(
     }
 
     if (status === ERROR_CODE.NETWORK_ERROR) {
-      error.msg = $t('网络异常，请稍后重试！');
+      error.msg = $t('utils.request.ZtDf0J', '网络异常，请稍后重试！');
     } else if (status === ERROR_CODE.AUTHORIZE_ERROR) {
       sessionStorage.setItem('cbPath', window.location.pathname + window.location.search);
       Cookie.removeCookie();
       useUserStore.getState().logoutAsync();
-      error.msg = $t('登录已过期，请重新登录！');
+      error.msg = $t('utils.request.uOQ4VH', '登录已过期，请重新登录！');
       window.setTimeout(() => {
         location.replace('/');
       }, 1000);

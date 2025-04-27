@@ -13,10 +13,10 @@
     "stylelint:fix": "stylelint  **/*.{css,less} --fix",
     "commit": "cz",
     "prepare": "husky install",
-    "lang": "node language.js",
-    "lang:upload": "node language.js upload 1.0.0",
-    "lang:cover": "node language.js download 1.0.0",
-    "lang:clear": "node language.js clear"
+    "lang": "node translate.js",
+    "lang:upload": "node translate.js upload 1.0.0",
+    "lang:cover": "node translate.js download 1.0.0",
+    "lang:clear": "node translate.js clear"
   },
   "dependencies": {
     "@emotion/react": "^11.13.3",
@@ -102,6 +102,7 @@
     "json-loader": "^0.5.7",
     "less": "^4.2.0",
     "lint-staged": "^15.2.10",
+    "pinyin": "^4.0.0-alpha.2",
     "postcss": "^8.4.49",
     "postcss-less": "^6.0.0",
     "prettier": "^3.3.3",

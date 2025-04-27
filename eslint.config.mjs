@@ -27,7 +27,7 @@ export default [
       '*.log',
       '*.lock',
       'stats.html',
-      'language.js',
+      'translate.js',
       '.commitlintrc.js',
       'vite.config.mjs',
       'postcss.config.js',
